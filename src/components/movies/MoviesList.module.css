@@ -1,0 +1,19 @@
+.FilmsLoading {
+  text-align: center;
+  color: white;
+}
+
+.FilmsError {
+  text-align: center;
+  color: red;
+}
+
+.section {
+  padding: 0 2rem 0 11rem;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}

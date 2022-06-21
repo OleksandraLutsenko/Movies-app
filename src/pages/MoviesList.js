@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MoviesItem from "../components/movies/MoviesItem";
 import classes from "../components/movies/MoviesList.module.css";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const MoviesList = () => {
   const [filmData, setFilmData] = useState([]);
@@ -77,7 +78,7 @@ const MoviesList = () => {
   if (isLoading) {
     return (
       <section className={classes.FilmsLoading}>
-        <p>Loading...</p>
+        <LoadingSpinner />
       </section>
     );
   }

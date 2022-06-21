@@ -1,5 +1,5 @@
 import Card from "../../UI/Card";
-import classes from "../movies/MoviesItem.moduel.css";
+import classes from "../movies/MoviesItem.module.css";
 import React from "react";
 
 const MoviesItem = (props) => {

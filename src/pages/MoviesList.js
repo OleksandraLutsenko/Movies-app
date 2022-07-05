@@ -1,13 +1,27 @@
 import React, { useEffect, useState } from "react";
+//import { getAllFilms } from "../lib/api";
 import MoviesItem from "../components/movies/MoviesItem";
 import classes from "../components/movies/MoviesList.module.css";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import Pagination from "../components/pagination/Pagination";
+//import useHttp from "../hooks/use-http";
+import { Link } from "react-router-dom";
 
-const MoviesList = () => {
+const MoviesList = (props) => {
   const [filmData, setFilmData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  let [pageNumber, setPageNumber] = useState(1);
+
+  const prevPageHandler = () => {
+    setPageNumber(pageNumber >= 1 ? --pageNumber : (pageNumber = 1));
+  };
+
+  const nextPageHandler = () => {
+    const incremeant = ++pageNumber;
+    setPageNumber(incremeant);
+  };
   // my API key - f3082f1504a96fa8a8f8c27eb0b95f53
 
   useEffect(() => {
@@ -16,7 +30,8 @@ const MoviesList = () => {
       setError(null);
       try {
         const response = await fetch(
-          "https://api.themoviedb.org/3/movie/popular?api_key=f3082f1504a96fa8a8f8c27eb0b95f53"
+          `https://api.themoviedb.org/3/movie/popular?api_key=f3082f1504a96fa8a8f8c27eb0b95f53&page=${pageNumber}`
+          // `https://api.themoviedb.org/3?api_key=f3082f1504a96fa8a8f8c27eb0b95f53`
         );
 
         if (!response.ok) {
@@ -26,13 +41,11 @@ const MoviesList = () => {
         const data = await response.json();
 
         setIsLoading(false);
-        //console.log(data);
-        //console.log(data.results[0].id, data.results[0].original_title);
 
+        console.log(data);
         const filmsList = [];
 
         const results = data.results;
-        console.log(results);
 
         for (let film in results) {
           filmsList.push({
@@ -40,13 +53,12 @@ const MoviesList = () => {
             cover: results[film].poster_path,
             title: results[film].original_title,
             rating: results[film].vote_average,
-            releaseDate: results[film].release_date,
+            releaseDate: results[film].release_date.slice(0, 4),
           });
         }
 
         setFilmData(filmsList);
         setIsLoading(false);
-        console.log(filmsList);
       } catch (err) {
         console.log(err.message);
         setError(err.message);
@@ -54,9 +66,22 @@ const MoviesList = () => {
     };
 
     fetchMoviesList();
-  }, []);
+  }, [pageNumber]);
 
-  const PopularMoviesList = filmData.map((film) => (
+  // const { sendRequest, status, data: filmsList, error } = useHttp(
+  //   getAllFilms(
+  //     `https://api.themoviedb.org/3/movie/popular?api_key=f3082f1504a96fa8a8f8c27eb0b95f53&page=${
+  //       pageNumber ? pageNumber : 1
+  //     }`
+  //   ),
+  //   true
+  // );
+
+  // useEffect(() => {
+  //   sendRequest();
+  // }, [sendRequest]);
+
+  const PopularFilmsList = filmData.map((film) => (
     <MoviesItem
       id={film.id}
       key={film.id}
@@ -77,16 +102,23 @@ const MoviesList = () => {
 
   if (isLoading) {
     return (
-      <section className={classes.FilmsLoading}>
+      <div className="centered">
         <LoadingSpinner />
-      </section>
+      </div>
     );
   }
 
   return (
-    <section className={classes.section}>
-      <ul className={classes.container}>{PopularMoviesList}</ul>
-    </section>
+    <Link to={`/page=${pageNumber}`}>
+      <section className={classes.section}>
+        <ul className={classes.container}>{PopularFilmsList}</ul>
+        <Pagination
+          onPrev={prevPageHandler}
+          onNext={nextPageHandler}
+          pageNumber={pageNumber}
+        />
+      </section>
+    </Link>
   );
 };
 

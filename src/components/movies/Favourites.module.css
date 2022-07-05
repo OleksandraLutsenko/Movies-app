@@ -1,0 +1,50 @@
+.item {
+  display: flex;
+  padding-right: 5rem;
+  font-size: 14px;
+}
+
+.image {
+  width: 10%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  margin-right: 2rem;
+}
+
+.container {
+  padding-left: 2rem;
+  text-align: justify;
+}
+
+.box {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+}
+
+.img {
+  width: 1.5rem;
+  padding: 1em;
+}
+
+.del {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 5rem;
+  margin: 4rem 0 0 5.4rem;
+}
+
+.bin {
+  width: 5rem;
+}
+
+.icon_box {
+  display: flex;
+  width: 50%;
+  align-items: center;
+}

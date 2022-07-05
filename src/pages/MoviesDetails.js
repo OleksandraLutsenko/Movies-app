@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MoviesDetail from "../components/movies/MoviesDetail";
 import { getSingleFilm } from "../lib/api";
@@ -55,16 +55,16 @@ const MoviesDetails = () => {
   //   getSingleFilm();
   // }, []);
 
-  const { sendRequest, status, data: filmDetails, error } = useHttp(
-    getSingleFilm,
-    true
-  );
+  const {
+    sendRequest,
+    status,
+    data: filmDetails,
+    error,
+  } = useHttp(getSingleFilm, true);
 
   useEffect(() => {
     sendRequest(filmId);
   }, [sendRequest, filmId]);
-
-  console.log(filmDetails);
 
   if (status === "pending") {
     return (
@@ -84,6 +84,8 @@ const MoviesDetails = () => {
 
   return (
     <MoviesDetail
+      id={filmDetails.id}
+      key={filmDetails.id}
       cover={filmDetails.cover}
       title={filmDetails.title}
       rating={filmDetails.rating}

@@ -15,9 +15,9 @@ const MoviesDetail = (props) => {
   const [bookmarkedFilm, setBookmarkedFilm] = useState();
   const [displayPopup, setDisplayPopup] = useState(false);
 
-  // const params = useParams();
+  const params = useParams();
 
-  // const { filmId } = params;
+  const { filmId } = params;
 
   const addBookmarkHandle = () => {
     setBookmarkedFilm({
@@ -67,7 +67,7 @@ const MoviesDetail = (props) => {
     }
   }, [sendRequest, status]);
 
-  console.log(status);
+  console.log();
 
   return (
     <section className={classes.details}>

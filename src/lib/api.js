@@ -80,6 +80,7 @@ export async function getSingleFilm(filmId) {
 
 export async function addMyFavFilm(filmData) {
   //https://mybookmarks-87e4d-default-rtdb.firebaseio.com/
+  
 
   const response = await fetch(`${FIREBASE_DOMAIN}/bookmarks.json`, {
     method: "POST",

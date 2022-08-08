@@ -8,6 +8,7 @@ import AddNewFilm from "./pages/AddNewFilm";
 import MoviesList from "./pages/MoviesList";
 import Login from "./pages/Login";
 import MoviesDetails from "./pages/MoviesDetails";
+import Search from "./components/movies/Search";
 
 function App() {
   return (
@@ -19,8 +20,11 @@ function App() {
         <Route path="/" exact>
           <MoviesList />
         </Route>
-        <Route path="/page=:num" >
+        {/* <Route path="/page=:num">
           <MoviesList />
+        </Route> */}
+        <Route path="/page=:num/?search=:num">
+          <Search />
         </Route>
         <Route path="/favourites">
           <Favourites />

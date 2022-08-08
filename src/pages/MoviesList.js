@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 //import { getAllFilms } from "../lib/api";
 import MoviesItem from "../components/movies/MoviesItem";
 import classes from "../components/movies/MoviesList.module.css";
@@ -6,6 +6,7 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 import Pagination from "../components/pagination/Pagination";
 //import useHttp from "../hooks/use-http";
 import { Link } from "react-router-dom";
+import Search from "../components/movies/Search";
 
 const MoviesList = (props) => {
   const [filmData, setFilmData] = useState([]);
@@ -32,6 +33,7 @@ const MoviesList = (props) => {
         const response = await fetch(
           `https://api.themoviedb.org/3/movie/popular?api_key=f3082f1504a96fa8a8f8c27eb0b95f53&page=${pageNumber}`
           // `https://api.themoviedb.org/3?api_key=f3082f1504a96fa8a8f8c27eb0b95f53`
+          // `https://api.themoviedb.org/3/search/movie?api_key=f3082f1504a96fa8a8f8c27eb0b95f53&query=the+avengers`
         );
 
         if (!response.ok) {
@@ -109,7 +111,9 @@ const MoviesList = (props) => {
   }
 
   return (
-    <Link to={`/page=${pageNumber}`}>
+    <Fragment>
+      <Search />
+      {/* <Link to={`/page=${pageNumber}`}> */}
       <section className={classes.section}>
         <ul className={classes.container}>{PopularFilmsList}</ul>
         <Pagination
@@ -118,7 +122,8 @@ const MoviesList = (props) => {
           pageNumber={pageNumber}
         />
       </section>
-    </Link>
+      {/* </Link> */}
+    </Fragment>
   );
 };
 
